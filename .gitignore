@@ -1,0 +1,51 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+build/
+.turbo/
+.vercel/
+
+# Test and coverage artifacts
+coverage/
+playwright-report/
+test-results/
+.vitest-cache/
+
+# Environment files — never commit real secrets
+.env*
+!.env.example
+
+# Local logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Certificates and secret material
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+
+# Uploaded or real personal documents (the app accepts PDFs at runtime only)
+uploads/
+documents/
+*.pdf
+*.doc
+*.docx
+*.rtf
+*.odt
+
+# Debug
+*.tsbuildinfo

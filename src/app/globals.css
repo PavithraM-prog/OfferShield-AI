@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/* The printable report is rendered only after the user starts printing. */
+.print-report {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  /* Hide the interactive application, including dialogs and controls. */
+  .no-print {
+    display: none !important;
+  }
+
+  .print-report {
+    display: block !important;
+  }
+
+  .print-avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Keep cards readable on paper: no clipped boxes or dark fills. */
+  .print-report * {
+    background: transparent !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+  }
+
+  .print-report {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}
