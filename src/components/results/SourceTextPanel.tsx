@@ -20,7 +20,7 @@ interface SourceTextPanelProps {
 }
 
 const tabButtonClass =
-  "min-h-11 rounded-md px-3 py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2";
+  "min-h-11 rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2";
 
 export default function SourceTextPanel({
   text,
@@ -66,28 +66,37 @@ export default function SourceTextPanel({
   return (
     <section
       aria-labelledby="source-text-heading"
-      className="min-w-0 rounded-lg border border-gray-200 bg-white shadow-sm"
+      className="surface min-w-0 animate-fade-up overflow-hidden rounded-3xl"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 p-4">
-        <div>
-          <h2 id="source-text-heading" className="text-lg font-semibold text-gray-900">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 p-4 sm:p-5">
+        <div className="min-w-0">
+          <h2
+            id="source-text-heading"
+            className="text-xl font-bold tracking-tight text-slate-950"
+          >
             Reviewed text
           </h2>
-          <p className="mt-1 text-xs text-gray-600">
+          <p className="mt-1 text-sm leading-6 text-slate-500">
             {view === "evidence"
               ? "Highlighted passages are exact quotations that passed evidence validation."
               : "Changing this text clears the current review, checklist, and email draft."}
           </p>
         </div>
-        <div role="group" aria-label="Text view" className="flex gap-1 rounded-md bg-gray-100 p-1">
+        <div
+          role="group"
+          aria-label="Text view"
+          className="flex gap-1 rounded-xl bg-slate-100 p-1"
+        >
           <button
             type="button"
             aria-pressed={view === "evidence"}
             disabled={!hasResult}
             onClick={() => onViewChange("evidence")}
             className={`${tabButtonClass} ${
-              view === "evidence" ? "bg-white text-gray-900 shadow-sm" : "text-gray-700"
-            } disabled:cursor-not-allowed disabled:text-gray-400`}
+              view === "evidence"
+                ? "bg-white text-indigo-700 shadow-sm"
+                : "text-slate-600 hover:text-slate-900"
+            } disabled:cursor-not-allowed disabled:text-slate-400 disabled:hover:text-slate-400`}
           >
             Evidence view
           </button>
@@ -96,7 +105,9 @@ export default function SourceTextPanel({
             aria-pressed={view === "edit"}
             onClick={() => onViewChange("edit")}
             className={`${tabButtonClass} ${
-              view === "edit" ? "bg-white text-gray-900 shadow-sm" : "text-gray-700"
+              view === "edit"
+                ? "bg-white text-indigo-700 shadow-sm"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             Edit text
@@ -104,18 +115,18 @@ export default function SourceTextPanel({
         </div>
       </div>
 
-      <div className="p-4">
+      <div className="p-4 sm:p-5">
         <div
           ref={evidenceRef}
           tabIndex={0}
           role="region"
           aria-label="Reviewed offer text with evidence highlighting"
-          className={`max-h-[36rem] overflow-y-auto rounded-md border border-gray-100 bg-gray-50 p-4 text-sm leading-7 text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 ${
+          className={`max-h-[36rem] overflow-y-auto rounded-2xl border border-slate-200/80 bg-slate-50/80 p-4 text-base leading-8 text-slate-900 shadow-inner shadow-slate-900/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 sm:p-5 ${
             view === "evidence" ? "" : "hidden"
           }`}
         >
           {text.length === 0 ? (
-            <p className="text-gray-600">No reviewed text is available.</p>
+            <p className="text-slate-500">No reviewed text is available.</p>
           ) : (
             <p className="whitespace-pre-wrap [overflow-wrap:anywhere]">
               {segments.map((segment) =>
@@ -127,8 +138,8 @@ export default function SourceTextPanel({
                     data-selected-evidence={segment.selected ? "true" : undefined}
                     className={
                       segment.selected
-                        ? "rounded-sm bg-yellow-200 px-0.5 font-medium text-gray-900 outline outline-2 outline-offset-2 outline-gray-900"
-                        : "rounded-sm bg-yellow-100 px-0.5 text-gray-900 underline decoration-dotted decoration-gray-600 underline-offset-2"
+                        ? "rounded-md bg-amber-200 px-1 font-semibold text-slate-950 outline outline-2 outline-offset-2 outline-amber-500"
+                        : "rounded-md bg-amber-100 px-1 text-slate-950 underline decoration-dotted decoration-slate-500 underline-offset-2"
                     }
                   >
                     {segment.text}
@@ -151,7 +162,7 @@ export default function SourceTextPanel({
             disabled={disabled}
             rows={16}
           />
-          <p className="mt-2 text-xs text-gray-600">
+          <p className="mt-2 text-sm leading-6 text-slate-500">
             The reviewed text is the version that was sent for analysis. Editing it
             invalidates existing results and drafts.
           </p>

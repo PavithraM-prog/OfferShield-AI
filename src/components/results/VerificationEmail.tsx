@@ -26,6 +26,9 @@ const COPY_LABELS: Record<CopyTarget, string> = {
   all: "subject and message",
 };
 
+const copyButtonClass =
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-base font-semibold text-slate-800 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2";
+
 export default function VerificationEmail({
   subject,
   body,
@@ -71,32 +74,38 @@ export default function VerificationEmail({
   return (
     <section
       aria-labelledby="verification-email-heading"
-      className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
+      className="surface animate-fade-up rounded-3xl p-5 sm:p-6"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id="verification-email-heading" className="text-lg font-semibold text-gray-900">
+        <h2
+          id="verification-email-heading"
+          className="text-xl font-bold tracking-tight text-slate-950"
+        >
           Verification email draft
         </h2>
         <button
           type="button"
           onClick={onResetDraft}
-          className="min-h-9 rounded-md px-1 py-1 text-sm font-semibold text-gray-900 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+          className="min-h-9 rounded-lg px-1 py-1 text-sm font-semibold text-indigo-700 underline underline-offset-2 transition-colors hover:text-indigo-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
         >
           Reset to suggested draft
         </button>
       </div>
 
-      <p className="mt-1 text-sm text-gray-700">
+      <p className="mt-1 text-sm leading-6 text-slate-500">
         A factual draft based only on this review. It does not accuse anyone, does not
         claim fraud occurred, and is not sent by OfferShield.
       </p>
-      <p className="mt-2 text-xs text-gray-600">
+      <p className="mt-2 text-sm leading-6 text-slate-500">
         Company, role, and other details used in this draft come from the supplied text or
         the optional AI review. They are not independently verified.
       </p>
 
       <div className="mt-4">
-        <label htmlFor="email-subject" className="block text-sm font-medium text-gray-900">
+        <label
+          htmlFor="email-subject"
+          className="block text-base font-semibold text-slate-800"
+        >
           Subject
         </label>
         <input
@@ -104,7 +113,7 @@ export default function VerificationEmail({
           type="text"
           value={subject}
           onChange={(event) => onSubjectChange(event.target.value)}
-          className="mt-1 block w-full rounded-md border border-gray-300 p-3 text-sm text-gray-900"
+          className="field-control mt-2 block p-3 text-base text-slate-900"
         />
       </div>
 
@@ -120,10 +129,13 @@ export default function VerificationEmail({
       </div>
 
       {remaining.length > 0 ? (
-        <p className="mt-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-950">
+        <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50/90 p-3 text-sm leading-6 text-amber-950">
           Replace the placeholder{remaining.length === 1 ? "" : "s"}{" "}
           {remaining.map((placeholder) => (
-            <code key={placeholder} className="mx-1 rounded bg-white px-1 py-0.5 font-mono text-xs">
+            <code
+              key={placeholder}
+              className="mx-1 rounded-md border border-amber-200 bg-white px-1.5 py-0.5 font-mono text-xs"
+            >
               {placeholder}
             </code>
           ))}
@@ -132,7 +144,7 @@ export default function VerificationEmail({
       ) : null}
 
       {edited ? (
-        <p className="mt-2 text-sm text-gray-700">
+        <p className="mt-2 text-sm leading-6 text-slate-500">
           You have edited this draft. Changing the offer text or contact fields clears it.
         </p>
       ) : null}
@@ -141,34 +153,34 @@ export default function VerificationEmail({
         <button
           type="button"
           onClick={() => void copyText("subject")}
-          className="min-h-11 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 hover:bg-gray-50"
+          className={copyButtonClass}
         >
           Copy subject
         </button>
         <button
           type="button"
           onClick={() => void copyText("body")}
-          className="min-h-11 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 hover:bg-gray-50"
+          className={copyButtonClass}
         >
           Copy message
         </button>
         <button
           type="button"
           onClick={() => void copyText("all")}
-          className="min-h-11 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 hover:bg-gray-50"
+          className={copyButtonClass}
         >
           Copy subject and message
         </button>
       </div>
 
-      <p role="status" aria-live="polite" className="mt-2 text-sm font-medium text-green-800">
+      <p role="status" aria-live="polite" className="mt-2 text-sm font-medium text-emerald-700">
         {successMessage}
       </p>
-      <p role="alert" className="mt-1 text-sm font-medium text-red-800">
+      <p role="alert" className="mt-1 text-sm font-medium text-rose-700">
         {failureMessage}
       </p>
 
-      <p className="mt-3 rounded-md bg-gray-50 p-3 text-xs text-gray-700">
+      <p className="surface-muted mt-3 rounded-xl p-3 text-sm leading-6 text-slate-500">
         Send this using contact details you obtain independently from the employer&apos;s
         official website — not contact details supplied in the message. OfferShield will
         not send the email or choose a recipient. Review and edit it before sending.

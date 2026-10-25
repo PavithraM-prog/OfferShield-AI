@@ -23,21 +23,21 @@ export default function TextInput({
   error,
   disabled,
   maxLength = MAX_TEXT_LENGTH,
-  rows,
+  rows = 8,
   ref,
 }: TextInputProps) {
   const errorId = `${id}-error`;
 
   return (
-    <div className="mt-2">
-      <label htmlFor={id} className="block text-sm font-medium text-gray-900">
+    <div className="mt-3">
+      <label htmlFor={id} className="block text-base font-semibold text-slate-800">
         {label}
       </label>
       <textarea
         id={id}
         ref={ref}
         rows={rows}
-        className="mt-1 block w-full rounded-md border border-gray-300 p-3 text-sm text-gray-900 disabled:bg-gray-100"
+        className="field-control mt-2 block min-h-32 resize-y p-4 text-base text-slate-900 disabled:bg-slate-100"
         value={value}
         maxLength={maxLength}
         onChange={(event) => onChange(event.target.value)}
@@ -45,15 +45,15 @@ export default function TextInput({
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
       />
-      <div className="mt-1 flex justify-between">
+      <div className="mt-2 flex flex-wrap items-start justify-between gap-2">
         {error ? (
-          <p id={errorId} role="alert" className="text-sm text-red-600">
+          <p id={errorId} role="alert" className="text-sm font-medium text-rose-600">
             {error}
           </p>
         ) : (
           <span />
         )}
-        <span className="text-xs text-gray-500">
+        <span className="text-sm tabular-nums text-slate-500">
           {value.length}/{maxLength}
         </span>
       </div>

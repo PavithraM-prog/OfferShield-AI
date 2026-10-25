@@ -8,38 +8,44 @@ export default function MissingInformation({ items }: MissingInformationProps) {
   return (
     <section
       aria-labelledby="missing-info-heading"
-      className="min-w-0 rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+      className="surface min-w-0 animate-fade-up rounded-3xl p-5 sm:p-6"
     >
-      <h2 id="missing-info-heading" className="text-lg font-semibold text-gray-900">
+      <h2
+        id="missing-info-heading"
+        className="text-xl font-bold tracking-tight text-slate-950"
+      >
         Missing or unidentified information
       </h2>
-      <p className="mt-1 text-xs text-gray-600">
+      <p className="mt-1 text-sm leading-6 text-slate-500">
         These checks only inspect the supplied excerpt, not the complete recruitment
         process. Missing details are not automatically a warning sign.
       </p>
 
       {items.length === 0 ? (
-        <p className="mt-3 rounded-md bg-gray-50 p-3 text-sm text-gray-700">
+        <p className="surface-muted mt-4 rounded-2xl p-4 text-base leading-7 text-slate-600">
           No missing information was identified in the supplied text.
         </p>
       ) : (
-        <div className="mt-3 space-y-2">
+        <div className="mt-4 space-y-2.5">
           {items.map((item, index) => (
-            <div key={`${item.field}-${index}`} className="rounded-md border border-gray-200 p-3 text-sm">
+            <div
+              key={`${item.field}-${index}`}
+              className="surface-muted rounded-2xl border p-4 text-base leading-7"
+            >
               <div className="flex flex-wrap items-center gap-2">
-                <p className="font-semibold text-gray-900">{item.field}</p>
-                <span className="rounded-full border border-gray-300 bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-800">
+                <p className="font-bold text-slate-950">{item.field}</p>
+                <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-sm font-semibold text-amber-800">
                   Not identified
                 </span>
-                <span className="text-xs text-gray-600">
+                <span className="text-sm text-slate-500">
                   Source: {item.source === "ai" ? "AI review" : "Rule-based check"}
                 </span>
               </div>
-              <p className="mt-1 font-medium text-gray-900">
+              <p className="mt-2 font-semibold text-slate-900">
                 Not identified in the supplied text — please review.
               </p>
-              <p className="mt-1 text-gray-700">{item.note}</p>
-              <p className="mt-1 text-xs text-gray-600">
+              <p className="mt-1 text-slate-600">{item.note}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-500">
                 No quotation is shown because this information was not found in the text.
               </p>
             </div>
